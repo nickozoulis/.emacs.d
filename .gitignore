@@ -1,3 +1,4 @@
+*~
 .saves/
 vendor/
 elpa/
@@ -23,3 +24,4 @@ ensime/
 places
 snippets/
 .cache/
+
