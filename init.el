@@ -50,6 +50,11 @@
   :config
   (projectile-global-mode))
 
+(use-package neotree
+  :ensure t)
+
+(setq neo-smart-open t)
+
 (use-package erlang
   :ensure t
   ;; We need to specify erlang-mode explicitely as the package is not called
