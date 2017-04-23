@@ -50,10 +50,13 @@
   :config
   (projectile-global-mode))
 
+(setq projectile-switch-project-action 'neotree-projectile-action)
+
 (use-package neotree
   :ensure t)
 
 (setq neo-smart-open t)
+
 
 (use-package erlang
   :ensure t
