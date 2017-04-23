@@ -1,6 +1,6 @@
 
 ;;
-;; PAKCAGE INIT
+;; PACKAGE INIT
 ;;
 
 (require 'package)
@@ -31,6 +31,7 @@
 (setq use-package-minimum-reported-time 0
       use-package-verbose t)
 
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 
 ;;
@@ -38,23 +39,42 @@
 ;;
 
 (use-package magit
+  :bind (("C-x g" . magit-status))
   :ensure t)
 
 (use-package solarized-theme
   :ensure t)
 
-;; TODO learn to use use-package to install your packages
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-global-mode))
 
-;;
-;; KEY BINDINGS
-;;
+(use-package erlang
+  :ensure t
+  ;; We need to specify erlang-mode explicitely as the package is not called
+  ;; erlang-mode.
+  :mode (("\\.erl\\'" . erlang-mode)
+         ("\\.hrl\\'" . erlang-mode)
+         ("\\.xrl\\'" . erlang-mode)
+         ("sys\\.config\\'" . erlang-mode)
+         ("rebar\\.config\\'" . erlang-mode)
+         ("\\.app\\(\\.src\\)?\\'" . erlang-mode))
+  :config
+  (setq erlang-indent-level 4))
+(use-package elixir-mode
+  :mode ("\\.ex\\'" "\\.exs\\'" "mix\\.lock\\'")
+  :config)
 
-;; display information about the current Git repository
-(global-set-key (kbd "C-x g") 'magit-status)
+(use-package wh-smarter-beginning-of-line
+  :bind ("C-a" . wh/smarter-beginning-of-line))
 
 ;;
 ;; VISUAL CHANGES
 ;;
+
+;; Always as "y or n", not that annoying "yes or no".
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Disable toolbar
 (tool-bar-mode -1)
