@@ -151,6 +151,15 @@
   :config (progn
             (yas-reload-all)
             (add-hook 'prog-mode-hook 'yas-minor-mode)
+	    )
+  )
+
+(use-package neotree
+  :ensure t
+  :init (progn
+	  (setq neo-hidden-regexp-list '("\\*.beam$"))
+	  ))
+
 
 
 (use-package wh-smarter-beginning-of-line
