@@ -97,9 +97,6 @@
   :config
   (setq erlang-indent-level 4))
 
-;; (use-package elixir-mode
-;;   :mode ("\\.ex\\'" "\\.exs\\'" "mix\\.lock\\'")
-;;   :config)
 
 (use-package alchemist
  :ensure t
@@ -115,23 +112,6 @@
           (define-key erlang-mode-map (kbd "M-,") 'alchemist-goto-jump-back))
         (add-hook 'erlang-mode-hook 'custom-erlang-mode-hook)
         ))
-
-;; (use-package alchemist
-;;   :mode "\\.ex\\'"
-;;   :ensure t
-;;   :config (progn
-;; 	    ;; (setq alchemist-goto-erlang-source-dir "~/projects/open-source/otp/")
-;; 	    (setq alchemist-goto-elixir-source-dir "/Users/nzo01/emacs_libs/elixir/")
-;; 	    ;; (setq alchemist-key-command-prefix (kbd "C-c ,")) ;; default: (kbd "C-c a")
-;; 	    (setq alchemist-test-display-compilation-output t)
-;; 	    (setq alchemist-hooks-test-on-save nil)
-;; 	    (setq alchemist-hooks-compile-on-save nil)
-
-;; 	    ;; allows the jumping back out of erlang code
-;; 	    (defun custom-erlang-mode-hook ()
-;; 	      (define-key erlang-mode-map (kbd "M-,") 'alchemist-goto-jump-back))
-;; 	    (add-hook 'erlang-mode-hook 'custom-erlang-mode-hook)
-;; 	    ))
 
 (use-package flycheck-mix
   :ensure t
@@ -163,6 +143,15 @@
 	  (add-hook 'elixir-mode-hook 'flycheck-mode)
 	  )
   )
+
+(use-package yasnippet
+  :ensure t
+  :init (progn
+          (yas-global-mode 1))
+  :config (progn
+            (yas-reload-all)
+            (add-hook 'prog-mode-hook 'yas-minor-mode)
+
 
 (use-package wh-smarter-beginning-of-line
   :bind ("C-a" . wh/smarter-beginning-of-line))
@@ -197,6 +186,41 @@ there's a region, all lines that region covers will be duplicated."
 
 ;; prefer spaces over tabs
 (setq-default indent-tabs-mode nil)
+
+;; Mousewheel scrolling can be quite annoying, lets fix it to scroll smoothly.
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
+(setq mouse-wheel-progressive-speed nil)
+
+(use-package ivy
+  :ensure t)
+
+(use-package counsel
+  :ensure t
+  :bind
+  (("M-x" . counsel-M-x)
+   ("M-y" . counsel-yank-pop)
+   :map ivy-minibuffer-map
+   ("M-y" . ivy-next-line)))
+
+;; grep git files
+(use-package swiper
+  :ensure t
+  :bind (("C-s" . swiper)
+         ("C-x C-f" . counsel-find-file)
+         ("M-i" . counsel-imenu)
+         ("C-c g" . counsel-git)
+         ("C-c j" . counsel-git-grep)
+         ("C-c k" . counsel-ag)
+         ("C-c l" . counsel-locate)
+         ("C-c h f" . counsel-describe-function)
+         ("C-c h v" . counsel-describe-variable)
+         ("C-c i u" . counsel-unicode-char)
+         ))
+
+(use-package counsel-projectile
+  :ensure t
+  :config
+  (counsel-projectile-on))
 
 
 ;;
