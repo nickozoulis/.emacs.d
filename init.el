@@ -65,10 +65,6 @@
 
 (setq projectile-switch-project-action 'neotree-projectile-action)
 
-(use-package neotree
-  :ensure t)
-
-
 (use-package exec-path-from-shell
   :ensure t
   :init (progn
@@ -157,7 +153,7 @@
 (use-package neotree
   :ensure t
   :init (progn
-	  (setq neo-hidden-regexp-list '("\\*.beam$"))
+	  (setq neo-hidden-regexp-list '("\\.beam$" "\\#$"))
 	  ))
 
 
@@ -192,6 +188,8 @@ there's a region, all lines that region covers will be duplicated."
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq backup-directory-alist `(("." . ,"~/.emacs.d/.saves")))
 
+;; Emacs auto-refresh all buffers when files have changed on disk
+(global-auto-revert-mode t)
 
 ;; prefer spaces over tabs
 (setq-default indent-tabs-mode nil)
@@ -230,6 +228,12 @@ there's a region, all lines that region covers will be duplicated."
   :ensure t
   :config
   (counsel-projectile-on))
+
+
+;; Move windows with Shift and arrow
+(windmove-default-keybindings)
+
+
 
 
 ;;
