@@ -154,7 +154,7 @@
 (use-package neotree
   :ensure t
   :init (progn
-	  (setq neo-hidden-regexp-list '("\\.beam$" "\\#$" "\\~$"))
+	  (setq neo-hidden-regexp-list '("\\.beam$" "\\#$" "\\~$" "\\.git$" "\\.saves$"))
 	  ))
 
 
@@ -237,9 +237,24 @@ there's a region, all lines that region covers will be duplicated."
 
 ;; Fuzzy file find using fiplr
 (global-set-key (kbd "C-x f") 'fiplr-find-file)
+(global-set-key (kbd "C-x d") 'fiplr-find-directory)
 (setq fiplr-root-markers '(".git"))
 (setq fiplr-ignored-globs '((directories (".git" ".svn" "deps" "_build"))
                             (files ("*.jpg" "*.png" "*.zip" "*~" "*#" "*.beam"))))
+
+
+(require 'swoop)
+(global-set-key (kbd "C-o")   'swoop)
+(global-set-key (kbd "C-M-o") 'swoop-multi)
+(global-set-key (kbd "M-o")   'swoop-pcre-regexp)
+(global-set-key (kbd "C-S-o") 'swoop-back-to-last-position)
+(setq swoop-window-split-current-window: t)
+(setq swoop-window-split-direction: 'split-window-vertically)
+
+;; EVIL MODE
+(add-to-list 'load-path "~/.emacs.d/evil")
+(require 'evil)
+(evil-mode 1)
 
 ;;
 ;; VISUAL CHANGES
@@ -312,7 +327,7 @@ there's a region, all lines that region covers will be duplicated."
 ;; height -> num lines
 
 ;; limit the number of times a frame can split
-(setq split-width-threshold 200)
+;;(setq split-width-threshold 200)
 
 (set-frame-font "Inconsolata 15" t t)
 
@@ -340,9 +355,12 @@ there's a region, all lines that region covers will be duplicated."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
  '(package-selected-packages
    (quote
-    (fiplr yasnippet use-package solarized-theme neotree magit flycheck-mix flycheck-elixir exec-path-from-shell erlang drag-stuff dracula-theme counsel-projectile alchemist))))
+    (rainbow-delimiters rainbow-blocks swoop project-explorer fiplr yasnippet use-package solarized-theme neotree magit flycheck-mix flycheck-elixir exec-path-from-shell erlang drag-stuff darcula counsel-projectile alchemist))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
